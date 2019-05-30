@@ -1,0 +1,1 @@
+/usr/bin/cc  -Wall -g   CMakeFiles/OS_ASSIGNMENT.dir/eggshell.c.o CMakeFiles/OS_ASSIGNMENT.dir/linenoise.c.o  -o OS_ASSIGNMENT 

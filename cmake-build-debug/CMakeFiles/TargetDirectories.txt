@@ -1,0 +1,3 @@
+/home/tristan_oa/Desktop/os-assginment-eggshell/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/tristan_oa/Desktop/os-assginment-eggshell/cmake-build-debug/CMakeFiles/OS_ASSIGNMENT.dir
+/home/tristan_oa/Desktop/os-assginment-eggshell/cmake-build-debug/CMakeFiles/edit_cache.dir
