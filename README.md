@@ -1,6 +1,6 @@
 # <span style="color:#7c5295">_Eggshell_</span>: A Linux Shell Written in C
 
-This linux shell was developed as part of a programming assignment for the [CPS1012: Operating Systems and Systems Programming 1](https://www.um.edu.mt/courses/studyunit/CPS1012) course, forming part of my BSc Computer Science.
+The C programming language was used to develop a Linux shell. This project was a programming assignment for the [CPS1012: Operating Systems and Systems Programming 1](https://www.um.edu.mt/courses/studyunit/CPS1012) course, a course forming part of my B.Sc. in Computer Science.
 
 # The <span style="color:#7c5295">_Eggshell_</span> Interpreter
 
@@ -26,23 +26,23 @@ Shell variables are character strings to which a value is assigned. Shell variab
 
 _Eggshell_ was designed to cater for these shell variables by default:
 
-> `PATH` - The search path used to launch external commands
+&emsp; `PATH` - The search path used to launch external commands
 
-> `PROMPT` - The string presented to the user to show that the shell is ready to accept command input
+&emsp; `PROMPT` - The string presented to the user to show that the shell is ready to accept command input
 
-> `CWD` - The path of the current working directory to which all file operations are relative to
+&emsp; `CWD` - The path of the current working directory to which all file operations are relative to
 
-> `USER` - The current user's username
+&emsp; `USER` - The current user's username
 
-> `HOME` - The current user's home directory
+&emsp; `HOME` - The current user's home directory
 
-> `SHELL` - The current user's shell
+&emsp; `SHELL` - The current user's shell
 
-> `TERMINAL` - The name of the terminal executing the current _Eggshell_ session
+&emsp; `TERMINAL` - The name of the terminal executing the current _Eggshell_ session
 
-> `EXITCODE` - The exit code returned by the last program run by the shell
+&emsp; `EXITCODE` - The exit code returned by the last program run by the shell
 
-An **assignment statement** is used to modify existing shell variables or create new ones.
+An ___assignment statement___ is used to modify existing shell variables or create new ones.
 
 A shell variable's value is obtained by prefixing its name with a **$**. If a valid name is detected, the shell obtains its value from the list of shell variables.
 
@@ -57,7 +57,7 @@ A shell variable's value is obtained by prefixing its name with a **$**. If a va
 
 ## Internal and External Commands
 
-_Eggshell_'s command-line interpreter recognises a number of internal (built-in) and external commands.
+_Eggshell_'s command-line interpreter recognises a number of __internal__ (built-in) and __external__ commands.
 
 When a new command is entered, it is compared to a list of built-in commands. If a command is not recognised as such, the shell treats the input as a call to an external command.
 
@@ -65,15 +65,15 @@ When a new command is entered, it is compared to a list of built-in commands. If
 
 _Eggshell_ was designed to cater for the following internal commands:
 
-> `exit` - Terminates all running processes spawned by the _Eggshell_ instance and quits the program
+&emsp; `exit` - Terminates all running processes spawned by the _Eggshell_ instance and quits the program
 
-> `print` - Echoes text expressions or variable values to standard output
+&emsp; `print` - Echoes text expressions or variable values to standard output
 
-> `chdir` - Changes the current working directory (CWD)
+&emsp; `chdir` - Changes the current working directory (CWD)
 
-> `all` - Prints all the shell variables in key-value pairs
+&emsp; `all` - Prints all the shell variables in key-value pairs
 
-> `source` - Provides scripting functionality. This command takes the name of a script file as its only argument and proceeds to open this file and execute all its commands. Each executed command behaves exactly in the same way as if it were typed in
+&emsp; `source` - Provides scripting functionality. This command takes the name of a script file as its only argument and proceeds to open this file and execute all of its commands. Each executed command behaves exactly in the same way as if it were typed in
 
 _Eggshell_'s current implementation traps and handles errors when commands fail. It returns appropriate error messages indicating the reason for failure.
 
@@ -87,13 +87,13 @@ The shell considers commands not included in the list above as external commands
 
 _Eggshell_ supports the following redirection operators:
 
-> `>` - Redirects a command's output into a file
+&emsp; `>` - Redirects a command's output into a file
 
-> `>>` - Redirects a command's output into a file, appending to its existing contents
+&emsp; `>>` - Redirects a command's output into a file, appending to the file's existing contents
 
-> `<` - Uses a file's contents as input to a command
+&emsp; `<` - Uses a file's contents as input to a command
 
-> `<<<` - Uses text as _here string_ input to a command
+&emsp; `<<<` - Uses text as _here string_ input to a command
 
 The usage of these commands is shown in the examples below, where _'cmd'_ denotes an arbitrary command (internal/external) with zero or more arguments and _'f.txt'_ refers to an arbitrary file.
 
