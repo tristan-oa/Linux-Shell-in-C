@@ -1,10 +1,10 @@
-# *<span style="color:#7c5295">Eggshell</span>*: A Linux Shell Written in C
+# <span style="color:#7c5295">_Eggshell_</span>: A Linux Shell Written in C
 
 This linux shell was developed as part of a programming assignment for the [CPS1012: Operating Systems and Systems Programming 1](https://www.um.edu.mt/courses/studyunit/CPS1012) course, forming part of my BSc Computer Science.
 
-# The *<span style="color:#7c5295">Eggshell</span>* Interpreter
+# The <span style="color:#7c5295">_Eggshell_</span> Interpreter
 
-*Eggshell* is a command-line interpreter for the Linux OS. It was designed to cater for the following:
+_Eggshell_ is a command-line interpreter for the Linux OS. It was designed to cater for the following:
 
 1. [**Shell Variables**](#shell-variables)
 2. [**Internal and External Commands**](#internal-and-external-commands)
@@ -14,69 +14,124 @@ This linux shell was developed as part of a programming assignment for the [CPS1
 
 These will be explained in the sub-sections to follow.
 
+---
 
-## <span style="color:blue">Shell Variables</span>
+## Shell Variables
 
 Shell variables are character strings to which a value is assigned. Shell variable names should be in UPPERCASE and can contain any of the following:
 
 - letters ( **A-Z** )
 - numbers ( **0-9** )
-- underscores ( **_** )
+- underscores ( **\_** )
 
-*Eggshell* was designed to cater for these shell variables by default:
+_Eggshell_ was designed to cater for these shell variables by default:
 
-> <span style="color:#00719c">PATH</span>: The search path used to launch external commands
+> `PATH` - The search path used to launch external commands
 
-> PROMPT	- The string presented to the user to show that the shell is ready to accept
-command input, e.g.	.
+> `PROMPT` - The string presented to the user to show that the shell is ready to accept command input
 
-- CWD	- The current working directory; all file operations are relative to this path, e.g.
-/home/student/cps1012 .
+> `CWD` - The path of the current working directory to which all file operations are relative to
 
-- USER	- The username of the current user, e.g.	.
-- HOME	- The home directory of the current user, e.g.	.
-- SHELL	- The shell of the current user; should be the absolute path of the eggshell
- 
+> `USER` - The current user's username
 
-(vii) TERMINAL - The name of the terminal attached to the current eggshell session; for
- 
-(viii) EXITCODE	- The exit code returned by the last program run by the shell.
+> `HOME` - The current user's home directory
 
-Note that variables unique to eggshell, such as TERMINAL or CWD, should be populated when the shell starts up.
-(b)	A user should be allowed to modify the content of shell variables or create new ones by using
-an assignment statement,	; for example:
+> `SHELL` - The current user's shell
 
+> `TERMINAL` - The name of the terminal executing the current _Eggshell_ session
 
-(c)	Shared variables appearing as command arguments or on the right-hand side of an assign- ment are prefixed with a $; the shell should recognise these occurrences and perform textual replacement with the variable value:
- 
+> `EXITCODE` - The exit code returned by the last program run by the shell
 
+An **assignment statement** is used to modify existing shell variables or create new ones.
 
-## <span style="color:blue">Internal and External Commands</span>
+A shell variable's value is obtained by prefixing its name with a **$**. If a valid name is detected, the shell obtains its value from the list of shell variables.
 
-as
+    > NEW_VAR=#
+    > print $NEW_VAR
+    #
+    > PROMPT=$NEW_VAR
+    # print The prompt has been changed to: $PROMPT
+    The prompt has been changed to: #
 
+---
 
-## <span style="color:blue">Input and Output Redirection</span>
+## Internal and External Commands
 
-as
+_Eggshell_'s command-line interpreter recognises a number of internal (built-in) and external commands.
 
+When a new command is entered, it is compared to a list of built-in commands. If a command is not recognised as such, the shell treats the input as a call to an external command.
 
-## <span style="color:blue">Piping</span>
+### Internal Commands
 
-asd
+_Eggshell_ was designed to cater for the following internal commands:
 
+> `exit` - Terminates all running processes spawned by the _Eggshell_ instance and quits the program
 
-## <span style="color:blue">Process Management</span>
+> `print` - Echoes text expressions or variable values to standard output
 
-as
+> `chdir` - Changes the current working directory (CWD)
 
+> `all` - Prints all the shell variables in key-value pairs
 
+> `source` - Provides scripting functionality. This command takes the name of a script file as its only argument and proceeds to open this file and execute all its commands. Each executed command behaves exactly in the same way as if it were typed in
 
+_Eggshell_'s current implementation traps and handles errors when commands fail. It returns appropriate error messages indicating the reason for failure.
 
+### External Commands
 
+The shell considers commands not included in the list above as external commands. It searches for matching program binaries through the system search path (PATH) and launches them as separate processes by forking.
+
+---
+
+## Input and Output Redirection
+
+_Eggshell_ supports the following redirection operators:
+
+> `>` - Redirects a command's output into a file
+
+> `>>` - Redirects a command's output into a file, appending to its existing contents
+
+> `<` - Uses a file's contents as input to a command
+
+> `<<<` - Uses text as _here string_ input to a command
+
+The usage of these commands is shown in the examples below, where _'cmd'_ denotes an arbitrary command (internal/external) with zero or more arguments and _'f.txt'_ refers to an arbitrary file.
+
+    # cmd > f.txt
+    # cmd >> f.txt
+    # cmd < f.txt
+    # cmd <<< 'text
+    more text
+    even more text'
+
+---
+
+## Piping
+
+The Unix piping operator **'|'** was implemented to chain multiple processes by their input and output streams. This allows the output (stdout) of one process to feed directly into the input (stdin) of the next, and so forth.
+
+As an example, consider the 4 command sequence below:
+
+    cat m.txt | grep a | wc -l | figlet > finish.txt
+
+The output of one command is passed as input to the next, as if the commands are connected together as one whole process. The diagram below helps to visualise this concept.
+
+<p align="center">
+  <img src="images/piping.jpg" alt="The piping process for 4 commands"/>
+  <br>
+  The piping process for 4 commands
+</p>
+
+---
+
+## Process Management
+
+Shells reserve a keyboard shortcut (typically **`CTRL`** + **`C`**) to interrupt running processes. Given that _Eggshell_ is a process itself, this shortcut would also terminate the current _Eggshell_ instance.
+
+To prevent this, the **SIG INT** signal triggered with this shortcut is trapped and forwarded to any process spawned by _Eggshell_, forcing this process only to exit, and not _Eggshell_ itself.
 
 # Documentation
 
-A detailed description of this project's deliverables can be found [here](https://github.com/tristan-oa/Python-DataStructures-Algorithms1-1st-year/blob/master/Assignment_SPECIFICATION.pdf).
+A detailed description of this project's deliverables can be found [here](https://github.com/tristan-oa/Linux-Shell-in-C/blob/master/Assignment_SPECIFICATION.pdf).
 
-A detailed technical documentation of the source code written can be found [here](https://github.com/tristan-oa/Python-DataStructures-Algorithms1-1st-year/blob/master/DOCUMENTATION.pdf).
+A detailed technical documentation of the source code written can be found [here](https://github.com/tristan-oa/Linux-Shell-in-C/blob/master/DOCUMENTATION.pdf).
